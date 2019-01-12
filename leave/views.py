@@ -51,8 +51,13 @@ def request_edit(request, pk):
         form = RequestForm(instance=requests)
     return render(request, 'leave/request_edit.html', {'form': form})
 
+def confirm(request, pk):
+    requests = get_object_or_404(Request, pk=pk)
+    if requests.perm:
+        send_mail(requests.subject, requests.description, settings.EMAIL_HOST_USER,
+        [requests.roll+'@iiita.ac.in'], fail_silently=False)
 
-def send_email(request):
+'''def send_email(request):
     subject = request.POST.get('subject', '')
     message = request.POST.get('message', '')
     to_email = request.POST.get('parent_email', '')
@@ -65,4 +70,4 @@ def send_email(request):
     else:
         # In reality we'd use a form class
         # to get proper validation errors.
-        return HttpResponse('Make sure all fields are entered and valid.')
+        return HttpResponse('Make sure all fields are entered and valid.')'''
