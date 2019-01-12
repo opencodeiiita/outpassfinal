@@ -6,6 +6,8 @@ from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
 
 # Create your views here.
 def request_list(request):
@@ -21,6 +23,8 @@ def request_new(request):
             requests = form.save(commit=False)
             requests.student = request.user
             requests.created_date = timezone.now()
+            send_mail(requests.subject, requests.description, settings.EMAIL_HOST_USER,
+            [requests.parent_email], fail_silently=False)
             requests.save()
             return redirect('request_detail', pk=requests.pk)
     else:
@@ -36,7 +40,7 @@ def request_detail(request, pk):
 def request_edit(request, pk):
     requests = get_object_or_404(Request, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=requests)
+        form = RequestForm(request.POST, instance=requests)
         if form.is_valid():
             requests = form.save(commit=False)
             requests.student = request.user
@@ -44,7 +48,7 @@ def request_edit(request, pk):
             requests.save()
             return redirect('request_detail', pk=requests.pk)
     else:
-        form = PostForm(instance=requests)
+        form = RequestForm(instance=requests)
     return render(request, 'leave/request_edit.html', {'form': form})
 
 

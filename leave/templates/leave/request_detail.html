@@ -11,7 +11,7 @@
                 {{ requests.end_date }}
             </div>
         {% endif %}
-        <a class="btn btn-default" href="{% url 'request_edit' pk=requests.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-default" href="{% url 'request_edit' pk=requests.pk %}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
         <h2>{{ requests.subject }}</h2>
 
         <p>{{ requests.description|linebreaksbr }}</p>
