@@ -1,0 +1,19 @@
+{% extends 'leave/base.html' %}
+
+{% block content %}
+
+    <div class="request">
+      <div class="date">
+          {{ requests.created_date }}
+      </div>
+        {% if requests.end_date %}
+            <div class="date">
+                {{ requests.end_date }}
+            </div>
+        {% endif %}
+        <a class="btn btn-default" href="{% url 'request_edit' pk=requests.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <h2>{{ requests.subject }}</h2>
+
+        <p>{{ requests.description|linebreaksbr }}</p>
+    </div>
+{% endblock %}

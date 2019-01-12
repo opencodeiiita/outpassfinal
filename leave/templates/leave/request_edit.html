@@ -1,0 +1,9 @@
+{% extends 'leave/base.html' %}
+
+{% block content %}
+    <h2>New Request</h2>
+    <form method="POST" class="request-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
