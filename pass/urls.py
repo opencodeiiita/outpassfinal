@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.contrib.auth import views
 from django.conf.urls import url, include
 
+from core import views as v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
