@@ -23,3 +23,12 @@ class Request(models.Model):
 
     def __str__(self):
         return self.subject
+
+@receiver(post_save, sender=Request)
+def update_request(sender, instance, created, **kwargs):
+    obj= kwargs[instance]
+    requests = get_object_or_404(Request, pk=obj.pk)
+    if requests.perm:
+        send_mail(requests.subject, requests.description, settings.EMAIL_HOST_USER,
+        [requests.roll+'@iiita.ac.in'], fail_silently=False)
+    instance.profile.save()
