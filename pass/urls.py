@@ -18,11 +18,15 @@ from django.urls import path, include
 from django.contrib.auth import views
 from django.conf.urls import url, include
 
-from core import views as v
+from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('leave.urls')),
+    url(r'^signup/$', core_views.signup, name='signup'),
+    url(r'^account_activation_sent/$', core_views.account_activation_sent, name='account_activation_sent'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+core_views.activate, name='activate'),
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
 ]

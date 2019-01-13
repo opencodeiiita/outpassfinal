@@ -63,6 +63,7 @@
         <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
     {% else %}
         <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock">Login</span></a>
+        <a href="{% url 'signup' %}" class="top-menu"><span class="glyphicon glyphicon-lock">Signup</span></a>
     {% endif %}
     <h1><a href="/">Outpass</a></h1>
 </div>
