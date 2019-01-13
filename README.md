@@ -33,4 +33,4 @@ Setup for developers (Unix)
   Fill in the details asked.This user can be then used to login normally or through admin dashboard.
 1. Run `python manage.py runserver` to start the development server.
 
-In case if you run into any issues during setup feel free to contact itm2017004@iiita.ac.in.
+In case if you run into any issues during setup feel free to contact Team Opencode.
