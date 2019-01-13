@@ -3,7 +3,8 @@ from django.db import models
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django.shortcuts import get_list_or_404, get_object_or_404
+from django.core.mail import send_mail
 
 class Request(models.Model):
     student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE , null=True)
@@ -28,9 +29,12 @@ class Request(models.Model):
 
 @receiver(post_save, sender=Request)
 def update_request(sender, instance, created, **kwargs):
-    obj= kwargs[instance]
-    requests = get_object_or_404(Request, pk=obj.pk)
+    print(instance.pk)
+    print(instance.perm)
+    # obj= kwargs[instance]
+    requests = get_object_or_404(Request, pk=instance.pk)
     if requests.perm:
+        print("Entered Signal")
         send_mail(requests.subject, requests.description, settings.EMAIL_HOST_USER,
         [requests.roll+'@iiita.ac.in'], fail_silently=False)
-    instance.profile.save()
+    # instance.save()
