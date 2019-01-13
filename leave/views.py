@@ -10,6 +10,14 @@ from django.conf import settings
 
 
 # Create your views here.
+
+def about(request):
+    return render(request, 'leave/about.html',{})
+
+def contact(request):
+    return render(request, 'leave/contact.html',{})
+
+
 def request_list(request):
     print(Request.objects.all)
     requests = Request.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
